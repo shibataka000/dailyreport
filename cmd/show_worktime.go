@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/ShibataTakao/dailyreport/dailyreport"
+	"github.com/shibataka000/dailyreport/dailyreport"
 	"github.com/spf13/cobra"
 )
 
