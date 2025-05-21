@@ -1,8 +1,5 @@
-linters:
+version: "2"
+formatters:
   enable:
-    - revive
     - gofmt
     - goimports
-issues:
-  include:
-    - EXC0012
