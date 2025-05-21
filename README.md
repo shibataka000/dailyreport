@@ -1,12 +1,13 @@
 # Daily report
 
-[![Test](https://github.com/ShibataTakao/dailyreport/actions/workflows/test.yaml/badge.svg)](https://github.com/ShibataTakao/dailyreport/actions/workflows/test.yaml)
+[![Test](https://github.com/shibataka000/dailyreport/actions/workflows/test.yaml/badge.svg)](https://github.com/shibataka000/dailyreport/actions/workflows/test.yaml)
 
 CLI tool to control daily report.
 
 ## Usage
 
 ### Show work time
+
 ```
 Show work time in daily report.
 
@@ -22,6 +23,7 @@ Flags:
 ```
 
 ### Show tasks
+
 ```
 Show tasks in daily report.
 
@@ -37,6 +39,7 @@ Flags:
 ```
 
 ## Install
+
 ```
-go install github.com/ShibataTakao/dailyreport@master
+go install github.com/shibataka000/dailyreport@master
 ```
