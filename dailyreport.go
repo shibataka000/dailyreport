@@ -22,7 +22,3 @@ type Attendance struct {
 	end       time.Time
 	breakTime time.Duration
 }
-
-func unmarshal(data []byte) (DailyReport, error) {
-	return DailyReport{}, nil
-}

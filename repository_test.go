@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestUnmarshal(t *testing.T) {
+func TestDailyReportRepositoryRead(t *testing.T) {
 	tests := []struct {
 		path   string
 		report DailyReport

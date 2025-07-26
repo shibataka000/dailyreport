@@ -1,6 +1,10 @@
 package main
 
-import "os"
+import (
+	"os"
+	"path/filepath"
+	"time"
+)
 
 type DailyReportRepository struct{}
 
@@ -13,5 +17,15 @@ func (r *DailyReportRepository) read(path string) (DailyReport, error) {
 	if err != nil {
 		return DailyReport{}, err
 	}
-	return unmarshal(data)
+
+	date, err := time.Parse("20060102.md", filepath.Base(path))
+	if err != nil {
+		return DailyReport{}, err
+	}
+
+	return unmarshal(date, data)
+}
+
+func unmarshal(date time.Time, data []byte) (DailyReport, error) {
+	return DailyReport{}, nil
 }
