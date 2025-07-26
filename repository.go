@@ -31,7 +31,7 @@ func (r *DailyReportRepository) read(path string) (DailyReport, error) {
 
 func unmarshal(t time.Time, data []byte) (DailyReport, error) {
 	var (
-		projectPattern = regexp.MustCompile(`^- \[.\]\s+(.+)$`)
+		projectPattern = regexp.MustCompile(`^- \[.\] (.+)$`)
 		taskPattern    = regexp.MustCompile(`^  - \[(.?)\] ([^\s]+)/([^\s]+) (.+)$`)
 
 		report         DailyReport
