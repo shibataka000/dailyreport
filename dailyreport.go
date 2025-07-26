@@ -1,6 +1,8 @@
 package main
 
-import "time"
+import (
+	"time"
+)
 
 type DailyReport struct {
 	attendance Attendance
@@ -19,4 +21,8 @@ type Attendance struct {
 	start     time.Time
 	end       time.Time
 	breakTime time.Duration
+}
+
+func unmarshal(data []byte) (DailyReport, error) {
+	return DailyReport{}, nil
 }
