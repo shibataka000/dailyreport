@@ -80,9 +80,8 @@ func unmarshal(t time.Time, data []byte) (DailyReport, error) {
 				actual:      actual,
 				completion:  matches[1] == "x",
 			})
-		}
-		if line == "---" {
-			break
+		case line == "---":
+			return report, nil
 		}
 	}
 
