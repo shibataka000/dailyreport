@@ -22,24 +22,28 @@ func (r *DailyReportRepository) read(path string) (DailyReport, error) {
 		return DailyReport{}, err
 	}
 
-	date, err := time.Parse("20060102.md", filepath.Base(path))
+	t, err := time.Parse("20060102.md", filepath.Base(path))
 	if err != nil {
 		return DailyReport{}, err
 	}
 
-	return unmarshal(date, data)
+	return unmarshal(t, data)
+}
+
+func time2duration(t time.Time) time.Duration {
+	return t.Sub(time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location()))
 }
 
 func unmarshal(date time.Time, data []byte) (DailyReport, error) {
 	var (
+		projectPattern = regexp.MustCompile(`^- \[.\]\s+(.+)$`)
+		taskPattern    = regexp.MustCompile(`^\s+- \[(.?)\]\s+(\d+\.\d+)h/(\d+\.\d+)h\s+(.+)$`)
+
 		report         DailyReport
 		currentProject string
 	)
 
 	scanner := bufio.NewScanner(strings.NewReader(string(data)))
-
-	projectPattern := regexp.MustCompile(`^- \[.\]\s+(.+)$`)
-	taskPattern := regexp.MustCompile(`^\s+- \[(.?)\]\s+(\d+\.\d+)h/(\d+\.\d+)h\s+(.+)$`)
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -49,19 +53,19 @@ func unmarshal(date time.Time, data []byte) (DailyReport, error) {
 			if err != nil {
 				return report, err
 			}
-			report.attendance.start = time.Date(date.Year(), date.Month(), date.Day(), start.Hour(), start.Minute(), 0, 0, time.Local)
+			report.attendance.start = date.Add(time2duration(start))
 		case strings.HasPrefix(line, "- 終業 "):
 			end, err := time.Parse("- 終業 15:04", line)
 			if err != nil {
 				return report, err
 			}
-			report.attendance.end = time.Date(date.Year(), date.Month(), date.Day(), end.Hour(), end.Minute(), 0, 0, time.Local)
+			report.attendance.end = date.Add(time2duration(end))
 		case strings.HasPrefix(line, "- 休憩 "):
 			breakTime, err := time.Parse("- 休憩 15:04", line)
 			if err != nil {
 				return report, err
 			}
-			report.attendance.breakTime = breakTime.Sub(time.Date(breakTime.Year(), breakTime.Month(), breakTime.Day(), 0, 0, 0, 0, breakTime.Location()))
+			report.attendance.breakTime = time2duration(breakTime)
 		case projectPattern.MatchString(line):
 			// Parse project line
 			if matches := projectPattern.FindStringSubmatch(line); matches != nil {
