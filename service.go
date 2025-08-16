@@ -38,7 +38,7 @@ func jq(ctx context.Context, output JQOutput, filter string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer os.Remove(temp.Name())
+	defer os.Remove(temp.Name()) // nolint:errcheck
 
 	b, err := json.Marshal(output)
 	if err != nil {

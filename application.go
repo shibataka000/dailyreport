@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+// Application encapsulates the dependencies required for the daily report application.
+// It holds a reference to DailyReportRepository for managing daily report data.
 type Application struct {
 	dailyreport *DailyReportRepository
 }

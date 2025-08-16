@@ -1,3 +1,6 @@
+// Package main provides a CLI tool for querying daily reports stored in a specified directory.
+// It uses the Cobra library to parse command-line flags for the report directory, date range, and query strings.
+// The tool executes queries over the reports within the given date range and prints the results to standard output.
 package main
 
 import (
@@ -32,7 +35,7 @@ func main() {
 	command := &cobra.Command{
 		Use:   "dailyreport",
 		Short: "",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runE(cmd.Context(), dir, since, until, queries)
 		},
 		SilenceUsage: true,

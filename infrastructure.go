@@ -12,6 +12,7 @@ import (
 	"time"
 )
 
+// DailyReportRepository provides methods to interact with daily report data stored in a specified directory.
 type DailyReportRepository struct {
 	dir string
 }
