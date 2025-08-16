@@ -19,7 +19,7 @@ func runE(ctx context.Context, dir string, since time.Time, until time.Time, que
 		if err != nil {
 			return err
 		}
-		fmt.Println(string(result))
+		fmt.Print(string(result))
 	}
 	return nil
 }
