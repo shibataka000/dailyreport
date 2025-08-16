@@ -43,7 +43,7 @@ func main() {
 
 	command.Flags().StringVar(&dir, "dir", ".", "Directory containing daily reports")
 	command.Flags().TimeVar(&since, "since", time.Now().AddDate(0, -1, 0), []string{time.DateOnly}, "Start date (inclusive) for querying reports (format: 2006-01-02)")
-	command.Flags().TimeVar(&until, "until", time.Now().AddDate(0, 0, 1), []string{time.DateOnly}, "End date (inclusive) for querying reports (format: 2006-01-02)")
+	command.Flags().TimeVar(&until, "until", time.Now().AddDate(0, 0, 1), []string{time.DateOnly}, "End date (exclusive) for querying reports (format: 2006-01-02)")
 	command.Flags().StringSliceVar(&queries, "query", []string{"."}, "Query string(s) to filter reports (can specify multiple)")
 
 	if err := command.ExecuteContext(context.Background()); err != nil {
