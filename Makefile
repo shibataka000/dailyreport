@@ -8,16 +8,13 @@ lint:
 test:
 	go test ./...
 
-.PHONY: copilot-test
-copilot-test: lint test
-
 .PHONY: build
 build:
-	go build github.com/shibataka000/dailyreport/cmd/dailyreport
+	go build
 
 .PHONY: install
 install:
-	go install github.com/shibataka000/dailyreport/cmd/dailyreport
+	go install
 
 .PHONY: clean
 clean:
