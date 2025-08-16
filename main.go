@@ -34,17 +34,17 @@ func main() {
 
 	command := &cobra.Command{
 		Use:   "dailyreport",
-		Short: "",
+		Short: "Query daily reports stored in a specified directory using date range and query strings.",
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runE(cmd.Context(), dir, since, until, queries)
 		},
 		SilenceUsage: true,
 	}
 
-	command.Flags().StringVar(&dir, "dir", ".", "")
-	command.Flags().TimeVar(&since, "since", time.Now().AddDate(0, -1, 0), []string{time.DateOnly}, "")
-	command.Flags().TimeVar(&until, "until", time.Now().AddDate(0, 0, 1), []string{time.DateOnly}, "")
-	command.Flags().StringSliceVar(&queries, "query", []string{"."}, "")
+	command.Flags().StringVar(&dir, "dir", ".", "Directory containing daily reports")
+	command.Flags().TimeVar(&since, "since", time.Now().AddDate(0, -1, 0), []string{time.DateOnly}, "Start date (inclusive) for querying reports (format: 2006-01-02)")
+	command.Flags().TimeVar(&until, "until", time.Now().AddDate(0, 0, 1), []string{time.DateOnly}, "End date (inclusive) for querying reports (format: 2006-01-02)")
+	command.Flags().StringSliceVar(&queries, "query", []string{"."}, "Query string(s) to filter reports (can specify multiple)")
 
 	if err := command.ExecuteContext(context.Background()); err != nil {
 		os.Exit(1)
