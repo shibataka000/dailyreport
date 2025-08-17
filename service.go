@@ -51,5 +51,5 @@ func jq(ctx context.Context, output JQOutput, filter string) ([]byte, error) {
 		return nil, err
 	}
 
-	return exec.CommandContext(ctx, "jq", filter, temp.Name()).Output()
+	return exec.CommandContext(ctx, "jq", "-r", filter, temp.Name()).Output()
 }
