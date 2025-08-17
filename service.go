@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"slices"
+	"strings"
 )
 
 func aggregate(reports []DailyReport) AggregatedReport {
@@ -33,23 +34,27 @@ func aggregate(reports []DailyReport) AggregatedReport {
 	}
 }
 
-func jq(ctx context.Context, output JQOutput, filter string) ([]byte, error) {
+func jq(ctx context.Context, output JQOutput, filter string) (string, error) {
 	temp, err := os.CreateTemp("", "*")
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	defer os.Remove(temp.Name()) // nolint:errcheck
 
-	b, err := json.Marshal(output)
+	b1, err := json.Marshal(output)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	if _, err := temp.Write(b); err != nil {
-		return nil, err
+	if _, err := temp.Write(b1); err != nil {
+		return "", err
 	}
 	if err = temp.Close(); err != nil {
-		return nil, err
+		return "", err
 	}
 
-	return exec.CommandContext(ctx, "jq", "-r", filter, temp.Name()).Output()
+	b2, err := exec.CommandContext(ctx, "jq", "-r", filter, temp.Name()).Output()
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(b2)), nil
 }

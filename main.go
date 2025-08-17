@@ -15,11 +15,11 @@ import (
 func runE(ctx context.Context, dir string, since time.Time, until time.Time, queries []string) error {
 	app := newApplication(newDailyReportRepository(dir))
 	for _, query := range queries {
-		result, err := app.query(ctx, since, until, query)
+		output, err := app.query(ctx, since, until, query)
 		if err != nil {
 			return err
 		}
-		fmt.Print(string(result))
+		fmt.Println(output)
 	}
 	return nil
 }

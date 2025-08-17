@@ -15,7 +15,7 @@ func TestQuery(t *testing.T) {
 		since  time.Time
 		until  time.Time
 		query  string
-		output []byte
+		output string
 	}{
 		{
 			name:  "Case01",
@@ -23,7 +23,7 @@ func TestQuery(t *testing.T) {
 			since: time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
 			until: time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
 			query: ".",
-			output: []byte(`{
+			output: `{
   "daily": [
     {
       "attendance": {
@@ -148,8 +148,7 @@ func TestQuery(t *testing.T) {
       }
     ]
   }
-}
-`),
+}`,
 		},
 		{
 			name:  "Case02",
@@ -157,7 +156,7 @@ func TestQuery(t *testing.T) {
 			since: time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
 			until: time.Date(2025, 1, 3, 9, 14, 0, 0, time.UTC),
 			query: ".",
-			output: []byte(`{
+			output: `{
   "daily": [
     {
       "attendance": {
@@ -230,8 +229,7 @@ func TestQuery(t *testing.T) {
       }
     ]
   }
-}
-`),
+}`,
 		},
 		{
 			name:  "Case03",
@@ -239,7 +237,7 @@ func TestQuery(t *testing.T) {
 			since: time.Date(2025, 1, 1, 9, 31, 0, 0, time.UTC),
 			until: time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
 			query: ".",
-			output: []byte(`{
+			output: `{
   "daily": [
     {
       "attendance": {
@@ -312,26 +310,23 @@ func TestQuery(t *testing.T) {
       }
     ]
   }
-}
-`),
+}`,
 		},
 		{
-			name:  "Case04",
-			dir:   "./testdata",
-			since: time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
-			until: time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
-			query: ".daily[0].attendance.working",
-			output: []byte(`25200000000000
-`),
+			name:   "Case04",
+			dir:    "./testdata",
+			since:  time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
+			until:  time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
+			query:  ".daily[0].attendance.working",
+			output: "25200000000000",
 		},
 		{
-			name:  "Case05",
-			dir:   "./testdata",
-			since: time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
-			until: time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
-			query: "\"x\"",
-			output: []byte(`x
-`),
+			name:   "Case05",
+			dir:    "./testdata",
+			since:  time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
+			until:  time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
+			query:  "\"x\"",
+			output: "x",
 		},
 	}
 

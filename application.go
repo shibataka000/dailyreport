@@ -17,10 +17,10 @@ func newApplication(dailyreport *DailyReportRepository) *Application {
 	}
 }
 
-func (app *Application) query(ctx context.Context, since time.Time, until time.Time, query string) ([]byte, error) {
+func (app *Application) query(ctx context.Context, since time.Time, until time.Time, query string) (string, error) {
 	daily, err := app.dailyreport.list(since, until)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	output := JQOutput{
 		Daily:      daily,
