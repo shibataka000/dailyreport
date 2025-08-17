@@ -324,6 +324,15 @@ func TestQuery(t *testing.T) {
 			output: []byte(`25200000000000
 `),
 		},
+		{
+			name:  "Case05",
+			dir:   "./testdata",
+			since: time.Date(2025, 1, 1, 9, 30, 0, 0, time.UTC),
+			until: time.Date(2025, 1, 3, 9, 15, 0, 0, time.UTC),
+			query: "\"x\"",
+			output: []byte(`x
+`),
+		},
 	}
 
 	for _, tt := range tests {
