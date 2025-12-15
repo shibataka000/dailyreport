@@ -3,7 +3,7 @@ module github.com/shibataka000/dailyreport
 go 1.24.0
 
 require (
-	github.com/spf13/cobra v1.10.1
+	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1
 )
 
